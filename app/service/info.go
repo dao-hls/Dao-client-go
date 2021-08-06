@@ -4,7 +4,7 @@
 @File : info.go
 @Software: GoLand
 */
-package tools
+package service
 
 import "fmt"
 

@@ -7,47 +7,33 @@
 package main
 
 import (
-	"Dao-client/tools"
-	"bytes"
+	"Dao-client/app/service"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 )
 
-func getMessage(name string,pass string ,email string) string {
-	//cookie := getCookie()
-	//loginServer(cookie)
-	urlPath := "http://127.0.0.1:8200/user/add"
-	postString := "{\"name\":\""+ name + "\",\"pass\":\"" + pass + "\",\"mail\":\"" +email +"\"}"
-	fmt.Println(postString)
-	postStringByte := []byte(postString)
-	req, err := http.NewRequest("POST", urlPath, bytes.NewBuffer(postStringByte))
-	req.Header.Set("Host", "oasys.e-nci.com")
-	req.Header.Set("Content-Length", "310")
-	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
-	//req.Header.Set("Cookie", cookie)
-	client := &http.Client{}
-	resp, _ := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	message := string(body)
-
-	return message
-}
-func main(){
-	tools.Info()
-	var  name,pass,email string
+//func main(){
+//	service.Info()
+//	var  name,pass,passre,email string
+//	fmt.Println("输入姓名")
+//	fmt.Scan(&name)
+//	fmt.Println("输入密码")
+//	fmt.Scan(&pass)
+//	fmt.Println("重复密码")
+//	fmt.Scan(&passre)
+//	fmt.Println("输入邮箱")
+//	fmt.Scan(&email)
+//	message := service.GetMessage(name,pass,passre,email)
+//	fmt.Println(message)
+//}
+func main() {
+	service.Info()
+	var name, pass string
 	fmt.Println("输入姓名")
 	fmt.Scan(&name)
 	fmt.Println("输入密码")
 	fmt.Scan(&pass)
-	fmt.Println("输入邮箱")
-	fmt.Scan(&email)
-	message := getMessage(name,pass,email)
-	fmt.Println(message)
+	cookie := service.Login(name, pass)
+	fmt.Println(cookie)
+	service.GetRole(cookie)
+
 }
