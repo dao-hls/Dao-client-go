@@ -9,6 +9,7 @@ package main
 import (
 	"Dao-client/app/service"
 	"fmt"
+	"time"
 )
 
 //func main(){
@@ -34,6 +35,11 @@ func main() {
 	fmt.Scan(&pass)
 	cookie := service.Login(name, pass)
 	fmt.Println(cookie)
-	service.GetRole(cookie)
+	i := 0
+	for i < 1 {
+		role := service.GetRole(cookie)
+		fmt.Println(role)
+		time.Sleep(time.Duration(1) * time.Second)
+	}
 
 }
