@@ -12,34 +12,40 @@ import (
 	"time"
 )
 
-//func main(){
-//	service.Info()
-//	var  name,pass,passre,email string
-//	fmt.Println("输入姓名")
-//	fmt.Scan(&name)
-//	fmt.Println("输入密码")
-//	fmt.Scan(&pass)
-//	fmt.Println("重复密码")
-//	fmt.Scan(&passre)
-//	fmt.Println("输入邮箱")
-//	fmt.Scan(&email)
-//	message := service.GetMessage(name,pass,passre,email)
-//	fmt.Println(message)
-//}
 func main() {
 	service.Info()
-	var name, pass string
-	fmt.Println("输入姓名")
-	fmt.Scan(&name)
-	fmt.Println("输入密码")
-	fmt.Scan(&pass)
-	cookie := service.Login(name, pass)
-	fmt.Println(cookie)
-	i := 0
-	for i < 1 {
-		role := service.GetRole(cookie)
-		fmt.Println(role)
-		time.Sleep(time.Duration(1) * time.Second)
+
+	var loginCode int
+
+	fmt.Println("输入 1 登录")
+	fmt.Println("输入 2 注册")
+	fmt.Scan(&loginCode)
+	fmt.Println(loginCode)
+	//service.Clean()
+	if loginCode == 1 {
+		name, pass := service.CliGetUser()
+		cookie, code := service.Login(name, pass)
+		i := 0
+		for i < 1 {
+			if code != 200 {
+				fmt.Println(cookie)
+				name, pass = service.CliGetUser()
+				cookie, code = service.Login(name, pass)
+			} else {
+				break
+			}
+
+		}
+		for i < 1 {
+			role := service.GetRole(cookie)
+			fmt.Println(role)
+			time.Sleep(time.Duration(1) * time.Second)
+		}
+	} else if loginCode == 2 {
+		fmt.Println("注册功能马上开启。。。")
+	} else {
+		fmt.Println("请勿输入 1 2 之外的内容")
 	}
+
 
 }
