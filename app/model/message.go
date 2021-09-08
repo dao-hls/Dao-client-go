@@ -1,6 +1,6 @@
 package model
 
-type GetMessage struct {
+type RespMessage struct {
 	Code    int
 	Message string
 }

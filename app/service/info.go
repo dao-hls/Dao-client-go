@@ -7,59 +7,38 @@
 package service
 
 import (
+	"Dao-client/app/tools"
 	"fmt"
-	"os"
-	"os/exec"
-	"runtime"
-	"time"
 )
 
+//定义url
+var UrlPre string
+
+func SelectServerAdress() {
+	var serverId int
+
+	fmt.Println("服务器列表")
+	//fmt.Println("0.潜龙在渊-内测服务器")
+	fmt.Println("1.飞龙在天-大陆服务器")
+	fmt.Println("2.龙战于野-国际服务器")
+	fmt.Println("请输入服务器序号选择服务器")
+	fmt.Scan(&serverId)
+	tools.Clean()
+	if serverId == 0 {
+		UrlPre = "http://127.0.0.1:8200"
+	} else if serverId == 1 {
+		UrlPre = "https://daoserver.fushisanlang.cn"
+		//panic("内测中，该服务器暂未开放。。。")
+	} else if serverId == 2 {
+		UrlPre = "http://43.128.67.66:8200"
+		panic("内测中，该服务器暂未开放。。。")
+	} else {
+		panic("服务器选择错误")
+	}
+}
 func Info() {
-	fmt.Println("XX大陆，元气消散。\n只有最优秀的人才能飞升上界，逃出生天。\n无法飞升的人只能化为虚无，归还元气给天地。\n如今，是元气复苏的第一世。\n元气剩余-170039205份。\n努力修炼，争取飞升。")
 
-}
+	generation, worldMp := getWorldStatus()
+	fmt.Println("末法时代，元气消散。\n只有最优秀的人才能飞升上界，逃出生天。\n无法飞升的人只能化为虚无，归还元气给天地。\n如今，是元气复苏的" + generation + "。\n元气剩余" + worldMp + "份。\n努力修炼，争取飞升。")
 
-var clear map[string]func() //create a map for storing clear funcs
-
-func init() {
-	clear = make(map[string]func()) //Initialize it
-
-	clear["linux"] = func() {
-		cmd := exec.Command("clear") //Linux example, its tested
-
-		cmd.Stdout = os.Stdout
-
-		cmd.Run()
-
-	}
-
-	clear["windows"] = func() {
-		cmd := exec.Command("cmd", "/c", "cls") //Windows example, its tested
-
-		cmd.Stdout = os.Stdout
-
-		cmd.Run()
-
-	}
-
-}
-
-func CallClear() {
-	value, ok := clear[runtime.GOOS] //runtime.GOOS -> linux, windows, darwin etc.
-
-	if ok { //if we defined a clear func for that platform:
-
-		value() //we execute it
-
-	} else { //unsupported platform
-
-		panic("Your platform is unsupported! I can't clear terminal screen :(")
-
-	}
-
-}
-
-func Clean() {
-	time.Sleep(2 * time.Second)
-	CallClear()
 }
