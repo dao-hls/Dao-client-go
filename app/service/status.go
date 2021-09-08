@@ -9,8 +9,10 @@ package service
 import (
 	"Dao-client/app/model"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 func getServiceVersion() string {
@@ -46,7 +48,10 @@ func VersionDiff() {
 	serverVersion := getServiceVersion()
 
 	if clientVersion != serverVersion {
-		panic("客户端版本异常，请重新下载客户端。\n客户端下载链接为： https://dao.fushisanlang.cn/Download/Dao-client.exe")
+		fmt.Println("客户端版本异常，请重新下载客户端。\n客户端下载链接为： https://dao.fushisanlang.cn/Download/Dao-client.exe")
+		fmt.Println("客户端将在20秒后自动关闭")
+		time.Sleep(20 * time.Second)
+		panic("bye")
 
 	}
 
