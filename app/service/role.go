@@ -22,7 +22,7 @@ func PrintRole(role model.RoleStauts) {
 	fmt.Printf("角色名：")
 	fmt.Println(role.Name)
 	fmt.Printf("性别：")
-	if role.Level == 0 {
+	if role.Sex == 0 {
 		fmt.Println("女")
 	} else {
 		fmt.Println("男")

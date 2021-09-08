@@ -8,7 +8,7 @@ package model
 
 type RoleStauts struct {
 	Name       string
-	Sex        string
+	Sex        int
 	Skill      string
 	Level      int
 	Experience int
