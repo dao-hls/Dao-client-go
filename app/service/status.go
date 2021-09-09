@@ -43,7 +43,7 @@ func getWorldStatus() (string, string) {
 	return serverVersion.Generation, serverVersion.WorldMp
 }
 func VersionDiff() {
-	clientVersion := "0.0.1"
+	clientVersion := "0.0.2"
 
 	serverVersion := getServiceVersion()
 
