@@ -35,10 +35,21 @@ func PrintRole(role model.RoleStauts) {
 	fmt.Println(role.School)
 	fmt.Printf("功法：")
 	fmt.Println(role.Skill)
+	fmt.Printf("攻击：")
+	fmt.Println(role.Attack)
+	fmt.Printf("防御：")
+	fmt.Println(role.Defense)
+	fmt.Printf("暴击：")
+	fmt.Println(role.ViolentRate)
+	fmt.Printf("爆伤：")
+	fmt.Println(role.ViolentAttack)
+	fmt.Printf("冷却：")
+	fmt.Println(role.SkillCD)
+
 	fmt.Printf("元气：")
-	fmt.Printf("%d / %d \n", role.Hp, role.HpMax)
+	fmt.Printf("%d / %d \n", role.Hp, role.MaxHp)
 	fmt.Printf("精气：")
-	fmt.Printf("%d / %d \n", role.Mp, role.MpMax)
+	fmt.Printf("%d / %d \n", role.Mp, role.MaxMp)
 
 }
 func GetRole(cookie string) model.RoleStauts {
@@ -63,20 +74,23 @@ func GetRole(cookie string) model.RoleStauts {
 
 	var message model.RespMessage
 	json.Unmarshal([]byte(respBody), &message)
-	if message.Code != 200 {
+	var Role model.RoleStauts
+	if message.Code != 200 && message.Code != 0 {
 		tools.Clean()
+
 		fmt.Println(message.Message)
 
 		AddRole(cookie)
-	}
-	var Role model.RoleStauts
-	json.Unmarshal([]byte(respBody), &Role)
-	//return serverVersion.Generation, serverVersion.WorldMp
+	} else {
 
+		json.Unmarshal([]byte(respBody), &Role)
+
+		//return serverVersion.Generation, serverVersion.WorldMp
+	}
 	return Role
 }
 
-func addRole() model.RoleCreate {
+func addRole(cookie string) model.RoleCreate {
 	var RoleCreate model.RoleCreate
 	var name string
 	fmt.Println("请输入角色名")
@@ -136,7 +150,7 @@ func addRole() model.RoleCreate {
 	RoleCreate.Shui = s
 	RoleCreate.Huo = h
 	RoleCreate.Tu = t
-	SchoolList := GetSchoolList()
+	SchoolList := GetSchoolList(cookie)
 	var schoolInfo model.SchoolInfo
 	for true {
 
@@ -168,6 +182,7 @@ func addRole() model.RoleCreate {
 		fmt.Scan(&schoolStatus)
 		if schoolStatus == "继续" {
 			RoleCreate.School_id = schoolId
+			//fmt.Println(RoleCreate.Name)
 			break
 		} else if schoolStatus == "重选" {
 			tools.Clean()
@@ -179,8 +194,8 @@ func addRole() model.RoleCreate {
 	}
 
 	fmt.Println("log 1")
-	SkillList := GetSkillList()
-	fmt.Println(len(SkillList))
+	SkillList := GetSkillList(cookie)
+	//fmt.Println(len(SkillList))
 	fmt.Println("log 2")
 	tools.Clean()
 	var skillInfo model.SkillInfo
@@ -220,7 +235,7 @@ func addRole() model.RoleCreate {
 }
 
 func AddRole(cookie string) {
-	Role := addRole()
+	Role := addRole(cookie)
 	for true {
 		urlPath := UrlPre + "/role/add"
 
@@ -228,6 +243,7 @@ func AddRole(cookie string) {
 		RoleJson, _ := json.Marshal(Role)
 		//postStringByte := []byte(postString)
 		req, err := http.NewRequest("POST", urlPath, bytes.NewBuffer(RoleJson))
+
 		req.Header.Set("Cookie", cookie)
 		client := &http.Client{}
 		resp, _ := client.Do(req)
@@ -254,6 +270,7 @@ func AddRole(cookie string) {
 			Role.Name = name
 		} else if respMessage.Code == 200 {
 			fmt.Println(respMessage.Message)
+
 			break
 		} else {
 			tools.Clean()

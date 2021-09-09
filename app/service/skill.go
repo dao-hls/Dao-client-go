@@ -8,22 +8,23 @@ package service
 
 import (
 	"Dao-client/app/tools"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
-func GetSkillList() []string {
+func GetSkillList(cookie string) []string {
 	urlPath := UrlPre + "/skill/getskilllist"
-	resp, _ := http.Get(urlPath)
+
+	req, _ := http.NewRequest("Get", urlPath, nil)
+	req.Header.Set("Cookie", cookie)
+	resp, _ := (&http.Client{}).Do(req)
+
+	//resp, _ := http.Get(urlPath)
 
 	defer resp.Body.Close()
-
 	schoolList, _ := ioutil.ReadAll(resp.Body)
 	schoolListString := string(schoolList)
 	SchoolList := tools.SliptJson(schoolListString)
-	fmt.Println("--------------------")
-	fmt.Println(SchoolList)
-	fmt.Println("--------------------")
+
 	return SchoolList
 }

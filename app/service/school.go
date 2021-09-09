@@ -12,9 +12,13 @@ import (
 	"net/http"
 )
 
-func GetSchoolList() []string {
+func GetSchoolList(cookie string) []string {
 	urlPath := UrlPre + "/school/getschoollist"
-	resp, _ := http.Get(urlPath)
+	req, _ := http.NewRequest("Get", urlPath, nil)
+	req.Header.Set("Cookie", cookie)
+	resp, _ := (&http.Client{}).Do(req)
+
+	//resp, _ := http.Get(urlPath)
 
 	defer resp.Body.Close()
 

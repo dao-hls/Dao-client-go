@@ -7,16 +7,28 @@
 package model
 
 type RoleStauts struct {
-	Name       string
-	Sex        int
-	Skill      string
-	Level      int
-	Experience int
-	School     string
-	Hp         int
-	Mp         int
-	MpMax      int
-	HpMax      int
+	Name          string
+	Level         int
+	Experience    int
+	School        string
+	Jin           int
+	Mu            int
+	Shui          int
+	Huo           int
+	Tu            int
+	Sex           int
+	Skill         string
+	MaxMp         int
+	Mp            int
+	MaxHp         int
+	Hp            int
+	HpBak         int
+	MpBak         int
+	SkillCD       int
+	Attack        int //攻击
+	Defense       int //防御
+	ViolentRate   int //暴击几率
+	ViolentAttack int //暴击伤害
 }
 
 type RoleCreate struct {

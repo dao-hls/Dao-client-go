@@ -18,18 +18,18 @@ func SelectServerAdress() {
 	var serverId int
 
 	fmt.Println("服务器列表")
-	//fmt.Println("0.潜龙在渊-内测服务器")
-	fmt.Println("1.飞龙在天-大陆服务器")
-	fmt.Println("2.龙战于野-国际服务器")
+	fmt.Println("1.潜龙在渊-内测服务器")
+	fmt.Println("2.飞龙在天-大陆服务器")
+	fmt.Println("3.龙战于野-国际服务器")
 	fmt.Println("请输入服务器序号选择服务器")
 	fmt.Scan(&serverId)
 	tools.Clean()
-	if serverId == 0 {
+	if serverId == 1 {
 		UrlPre = "http://127.0.0.1:8200"
-	} else if serverId == 1 {
+	} else if serverId == 2 {
 		UrlPre = "https://daoserver.fushisanlang.cn"
 		//panic("内测中，该服务器暂未开放。。。")
-	} else if serverId == 2 {
+	} else if serverId == 3 {
 		UrlPre = "http://43.128.67.66:8200"
 		panic("内测中，该服务器暂未开放。。。")
 	} else {

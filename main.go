@@ -56,10 +56,8 @@ func main() {
 		}
 		//
 	}
-	for i < 1 {
-		role := service.GetRole(cookie)
-		tools.Clean()
-		service.PrintRole(role)
+	go service.PrintInfo(cookie)
+	for true {
 		time.Sleep(time.Duration(1) * time.Second)
 	}
 
