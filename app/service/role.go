@@ -50,6 +50,11 @@ func PrintRole(role model.RoleStauts) {
 	fmt.Printf("%d / %d \n", role.Hp, role.MaxHp)
 	fmt.Printf("精气：")
 	fmt.Printf("%d / %d \n", role.Mp, role.MaxMp)
+	fmt.Printf("回元：")
+	fmt.Println(role.HpBak)
+
+	fmt.Printf("聚气：")
+	fmt.Println(role.MpBak)
 
 }
 func GetRole(cookie string) model.RoleStauts {
