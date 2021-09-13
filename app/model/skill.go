@@ -10,6 +10,6 @@ type SkillInfo struct {
 	Name        string
 	Id          int
 	Description string
-	Buff        string
-	Style       string
+	//Buff        string
+	Style string
 }

@@ -35,6 +35,8 @@ func PrintRole(role model.RoleStauts) {
 	fmt.Println(role.School)
 	fmt.Printf("功法：")
 	fmt.Println(role.Skill)
+	fmt.Printf("武器：")
+	fmt.Println(role.Arm)
 	fmt.Printf("攻击：")
 	fmt.Println(role.Attack)
 	fmt.Printf("防御：")
@@ -198,10 +200,8 @@ func addRole(cookie string) model.RoleCreate {
 
 	}
 
-	fmt.Println("log 1")
 	SkillList := GetSkillList(cookie)
-	//fmt.Println(len(SkillList))
-	fmt.Println("log 2")
+
 	tools.Clean()
 	var skillInfo model.SkillInfo
 	for true {
@@ -233,8 +233,42 @@ func addRole(cookie string) model.RoleCreate {
 			tools.Clean()
 			fmt.Println("输入异常，重新选择技能")
 		}
-	}
 
+	}
+	ArmList := GetArmList(cookie)
+
+	tools.Clean()
+	var armInfo model.ArmInfo
+	for true {
+		for i := 0; i < len(ArmList); i++ {
+			json.Unmarshal([]byte(ArmList[i]), &armInfo)
+
+			fmt.Println(". " + armInfo.Name + " 简介:" + armInfo.Description)
+		}
+		fmt.Println("请输入武器前的序号选择武器。\n请注意，武器与功法匹配时，威力会成倍提升。")
+		var armId int
+		fmt.Scan(&armId)
+		if armId == 0 || armId > len(ArmList) {
+			armId = 1
+			fmt.Println("输入异常，使用默认武器")
+		}
+		json.Unmarshal([]byte(ArmList[armId-1]), &armInfo)
+		//tools.Clean()
+		fmt.Println("将选择 " + armInfo.Name + "作为起始武器")
+		fmt.Println("输入 继续 进行下一步，输入 重选 返回武器选择")
+		var armStatus string
+		fmt.Scan(&armStatus)
+		if armStatus == "继续" {
+			RoleCreate.Arm_id = armId
+			break
+		} else if armStatus == "重选" {
+			tools.Clean()
+		} else {
+			tools.Clean()
+			fmt.Println("输入异常，重新选择武器")
+		}
+
+	}
 	//panic("经历")
 	return RoleCreate
 }
