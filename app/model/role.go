@@ -7,7 +7,6 @@
 package model
 
 type RoleStauts struct {
-	Arm           string
 	Name          string
 	Level         int
 	Experience    int
@@ -36,7 +35,6 @@ type RoleCreate struct {
 	Name      string `json:"name"`
 	School_id int    `json:"school_id"`
 	Skill_id  int    `json:"skill_Id"`
-	Arm_id    int    `json:"arm_id"`
 	Jin       int    `json:"jin"`
 	Mu        int    `json:"mu"`
 	Shui      int    `json:"shui"`
