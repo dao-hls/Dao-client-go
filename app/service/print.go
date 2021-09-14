@@ -17,7 +17,7 @@ func PrintInfo(cookie string) {
 
 		fmt.Println("1.获取角色信息")
 		fmt.Println("2.修炼")
-		fmt.Println("3.探险")
+		fmt.Println("3.奇遇")
 		fmt.Println("0.退出")
 
 		var opCode int
@@ -30,8 +30,10 @@ func PrintInfo(cookie string) {
 			PrintRole(role)
 		} else if opCode == 2 {
 			fmt.Println("修炼")
+
 		} else if opCode == 3 {
-			fmt.Println("探险")
+			FinishtEvent(cookie)
+
 		} else if opCode == 0 {
 			fmt.Println("客户端将在10秒后关闭")
 			time.Sleep(time.Duration(10) * time.Second)
