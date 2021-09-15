@@ -46,6 +46,7 @@ func main() {
 
 	name, pass := service.CliGetUser()
 	cookie, code := service.Login(name, pass)
+
 	i := 0
 	for i < 1 {
 		if code != 200 {
