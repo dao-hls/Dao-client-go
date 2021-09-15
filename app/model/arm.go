@@ -1,15 +1,15 @@
 /*
-@Time : 2021/9/8 10:52
+@Time : 2021/9/15 13:46
 @Author : zhangyin
-@File : skill
+@File : arm
 @Software: GoLand
 */
 package model
 
-type SkillInfo struct {
+type ArmInfo struct {
 	Name        string
 	Id          int
 	Description string
-
+	//Buff        string
 	Style string
 }
