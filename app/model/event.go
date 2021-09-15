@@ -7,9 +7,9 @@
 package model
 
 type Event struct {
-	Id          int
-	Name        string
-	Description string
+	Id   int
+	Name string
+	//Description string
 }
 type FinishEvent struct {
 	Id int

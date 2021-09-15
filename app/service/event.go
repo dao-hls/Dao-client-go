@@ -40,14 +40,13 @@ func FinishtEvent(cookie string) {
 	Event1, Event2, Event3 := getEventList(cookie)
 
 	fmt.Printf("1. ")
-	fmt.Printf(Event1.Name + ": ")
-	fmt.Println(Event1.Description)
+	fmt.Println(Event1.Name)
+
 	fmt.Printf("2. ")
-	fmt.Printf(Event2.Name + ": ")
-	fmt.Println(Event2.Description)
+	fmt.Println(Event2.Name)
+
 	fmt.Printf("3. ")
-	fmt.Printf(Event3.Name + ": ")
-	fmt.Println(Event3.Description)
+	fmt.Println(Event3.Name)
 
 	fmt.Println("请输入奇遇前的序号选择奇遇")
 	var id int
