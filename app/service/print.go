@@ -13,10 +13,8 @@ import (
 )
 
 func PrintInfo(cookie string) {
-	role := GetRole(cookie)
-	PrintRole(role)
+
 	for true {
-		role = GetRole(cookie)
 
 		fmt.Println("1.获取角色信息")
 		fmt.Println("2.读书")
@@ -27,10 +25,12 @@ func PrintInfo(cookie string) {
 		fmt.Scan(&opCode)
 		tools.Clean()
 		if opCode == 1 {
-			role := GetRole(cookie)
+			role, status := GetRole(cookie)
 			tools.Clean()
-			//fmt.Println(role)
-			PrintRole(role)
+
+			if status == true {
+				PrintRole(role)
+			}
 		} else if opCode == 2 {
 			ReadBook(cookie)
 
