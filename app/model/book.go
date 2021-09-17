@@ -16,3 +16,15 @@ type RespBooks struct {
 	Books [5]Book
 	Len   int
 }
+type RespReading struct {
+	BookName string
+	Code     int
+	BookId   int
+}
+
+type SetReading struct {
+	Id int
+}
+type BookPass struct {
+	Pass int
+}

@@ -13,9 +13,11 @@ import (
 )
 
 func PrintInfo(cookie string) {
+	role := GetRole(cookie)
+	PrintRole(role)
 	for true {
-		role := GetRole(cookie)
-		PrintRole(role)
+		role = GetRole(cookie)
+
 		fmt.Println("1.获取角色信息")
 		fmt.Println("2.读书")
 		fmt.Println("3.奇遇")
@@ -30,7 +32,7 @@ func PrintInfo(cookie string) {
 			//fmt.Println(role)
 			PrintRole(role)
 		} else if opCode == 2 {
-			GetBook(cookie)
+			ReadBook(cookie)
 
 		} else if opCode == 3 {
 			FinishtEvent(cookie)
