@@ -138,9 +138,9 @@ func setReading(cookie string, bid int, status int) {
 func readBook(cookie string, bid int) {
 
 	code := GetReadInfo(cookie)
-	for code != 405 {
+	for code != 405 && code != 0 {
 
-		tools.Clean()
+		//tools.Clean()
 
 		fmt.Println("1.开始修炼")
 		fmt.Println("2.退出修炼")
@@ -161,30 +161,34 @@ func readBook(cookie string, bid int) {
 
 func GetReadInfo(cookie string) int {
 	pass := getBookInfo()
-	urlPath := UrlPre + "/book/bookinfo"
-	var BookPass model.BookPass
-	BookPass.Pass = pass
-	postString, _ := json.Marshal(setReading)
-	//fmt.Println(postString)
-	req, err := http.NewRequest("POST", urlPath, bytes.NewBuffer(postString))
-	req.Header.Set("Cookie", cookie)
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
+	if pass > 18 {
+		return 0
+	} else {
+		urlPath := UrlPre + "/book/bookinfo"
+		var BookPass model.BookPass
+		BookPass.Pass = pass
+		postString, _ := json.Marshal(setReading)
+		//fmt.Println(postString)
+		req, err := http.NewRequest("POST", urlPath, bytes.NewBuffer(postString))
+		req.Header.Set("Cookie", cookie)
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		body, _ := ioutil.ReadAll(resp.Body)
+
+		respStr := string(body)
+		//fmt.Println(respStr)
+		var respMessage model.RespMessage
+		json.Unmarshal([]byte(respStr), &respMessage)
+		tools.Clean()
+
+		fmt.Println(respMessage.Message)
+		return respMessage.Code
 	}
-	defer resp.Body.Close()
-
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	respStr := string(body)
-	//fmt.Println(respStr)
-	var respMessage model.RespMessage
-	json.Unmarshal([]byte(respStr), &respMessage)
-	tools.Clean()
-
-	fmt.Println(respMessage.Message)
-	return respMessage.Code
 }
 
 func getBookInfo() int {
@@ -194,32 +198,38 @@ func getBookInfo() int {
 	for i := 0; i < 8; i++ {
 		fmt.Printf("%v. ", i+1)
 		fmt.Println(JingMai[i])
-	}
 
+	}
+	fmt.Println("输入其他则退出修炼。")
 	var a, b int
 	fmt.Scan(&a)
 	if a < 1 || a > 8 {
-		fmt.Println("输入错误，开始冲击任脉")
-		a = 0
+
+		fmt.Println("退出修炼")
+		a = 100
+		b = 100
 	} else {
 		fmt.Println("开始冲击" + JingMai[a-1])
 		a = a - 1
-	}
-	tools.Clean()
-	fmt.Println("天地有阴阳，静脉有起始，功法有顺逆。\n你想正向冲击经脉还是反向冲击静脉？")
-	fmt.Println("1. 顺练")
-	fmt.Println("2. 逆练")
-	fmt.Scan(&b)
 
-	if b == 1 {
-		fmt.Println("开始顺练")
-		b = 0
-	} else if b == 2 {
-		fmt.Println("开始逆练")
-		b = 1
-	} else {
-		fmt.Println("输入错误,开始顺练")
-		b = 0
+		tools.Clean()
+		fmt.Println("天地有阴阳，静脉有起始，功法有顺逆。\n你想正向冲击经脉还是反向冲击静脉？")
+		fmt.Println("1. 顺练")
+		fmt.Println("2. 逆练")
+		fmt.Println("输入其他则退出修炼。")
+		fmt.Scan(&b)
+
+		if b == 1 {
+			fmt.Println("开始顺练")
+			b = 0
+		} else if b == 2 {
+			fmt.Println("开始逆练")
+			b = 1
+		} else {
+			fmt.Println("退出修炼。")
+
+			b = 100
+		}
 	}
 	return a * b
 }
