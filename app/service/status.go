@@ -18,7 +18,10 @@ import (
 func getServiceVersion() string {
 
 	urlPath := UrlPre + "/status/version"
-	resp, _ := http.Get(urlPath)
+	resp, err := http.Get(urlPath)
+	if err != nil {
+		fmt.Println("服务器维护中。。。")
+	}
 	defer resp.Body.Close()
 
 	version, _ := ioutil.ReadAll(resp.Body)

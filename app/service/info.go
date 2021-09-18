@@ -28,6 +28,7 @@ func SelectServerAdress() {
 		UrlPre = "http://127.0.0.1:8200"
 	} else if serverId == 2 {
 		UrlPre = "https://daoserver.fushisanlang.cn"
+
 		//panic("内测中，该服务器暂未开放。。。")
 	} else if serverId == 3 {
 		UrlPre = "http://43.128.67.66:8200"

@@ -12,8 +12,9 @@ import (
 	"net/http"
 )
 
-func GetSchoolList(cookie string) []string {
-	urlPath := UrlPre + "/school/getschoollist"
+func GetArmList(cookie string) []string {
+	urlPath := UrlPre + "/arm/getarmlist"
+
 	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
@@ -21,19 +22,9 @@ func GetSchoolList(cookie string) []string {
 	//resp, _ := http.Get(urlPath)
 
 	defer resp.Body.Close()
-
 	schoolList, _ := ioutil.ReadAll(resp.Body)
 	schoolListString := string(schoolList)
 	SchoolList := tools.SliptJson(schoolListString)
-	//fmt.Println(SchoolList)
 
-	//var School model.SchoolList
-	//var SchoolList2 []model.SchoolList
-	//for i:=0;i<len(SchoolList);i++ {
-	//json.Unmarshal([]byte(SchoolList[i]), &School)
-	//
-	//	SchoolList2=append(SchoolList2,School.SchoolInfo)
-	//	fmt.Println(SchoolList2)
-	//}
 	return SchoolList
 }

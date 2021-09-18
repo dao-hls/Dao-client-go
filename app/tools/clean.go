@@ -62,4 +62,5 @@ func CallClear() {
 func Clean() {
 	//time.Sleep(2 * time.Second)
 	CallClear()
+	//fmt.Println("=====clean========")
 }

@@ -43,6 +43,7 @@ func init() {
 }
 
 func main() {
+
 	name, pass := service.CliGetUser()
 	cookie, code := service.Login(name, pass)
 	i := 0
@@ -54,8 +55,9 @@ func main() {
 		} else {
 			break
 		}
-		//
+
 	}
+
 	go service.PrintInfo(cookie)
 	for true {
 		time.Sleep(time.Duration(1) * time.Second)
