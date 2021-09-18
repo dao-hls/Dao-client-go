@@ -7,7 +7,6 @@
 package tools
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"runtime"
@@ -62,6 +61,6 @@ func CallClear() {
 
 func Clean() {
 	//time.Sleep(2 * time.Second)
-	//CallClear()
-	fmt.Println("=====clean========")
+	CallClear()
+	//fmt.Println("=====clean========")
 }
