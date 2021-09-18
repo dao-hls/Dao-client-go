@@ -15,7 +15,7 @@ import (
 func GetSkillList(cookie string) []string {
 	urlPath := UrlPre + "/skill/getskilllist"
 
-	req, _ := http.NewRequest("Get", urlPath, nil)
+	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
 

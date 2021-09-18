@@ -19,7 +19,7 @@ import (
 func ReadBook(cookie string) {
 	urlPath := UrlPre + "/book/readbook"
 
-	req, _ := http.NewRequest("Get", urlPath, nil)
+	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
 
@@ -35,20 +35,26 @@ func ReadBook(cookie string) {
 	} else {
 		//在读
 		tools.Clean()
-		fmt.Println("您正在修炼" + respMessage.BookName + "中。")
-		fmt.Println("1. 继续修炼。")
-		fmt.Println("2. 更换心法，进度不保存。")
-		fmt.Println("请输入序号选择 继续修炼 还是 更换心法：")
-		var a int
-		fmt.Scan(&a)
-		if a == 1 {
-			readBook(cookie, respMessage.BookId)
-		} else if a == 2 {
-			GetBook(cookie, 2)
+		if respMessage.BookName != "" {
+
+			fmt.Println("您正在修炼" + respMessage.BookName + "中。")
+			fmt.Println("1. 继续修炼。")
+			fmt.Println("2. 更换心法，进度不保存。")
+			fmt.Println("请输入序号选择 继续修炼 还是 更换心法：")
+			var a int
+			fmt.Scan(&a)
+			if a == 1 {
+				readBook(cookie, respMessage.BookId)
+			} else if a == 2 {
+				GetBook(cookie, 2)
+			} else {
+				tools.Clean()
+				fmt.Println("输入错误，继续修炼当前心法。")
+				readBook(cookie, respMessage.BookId)
+			}
 		} else {
-			tools.Clean()
-			fmt.Println("输入错误，继续修炼当前心法。")
-			readBook(cookie, respMessage.BookId)
+
+			GetBook(cookie, 2)
 		}
 	}
 }
@@ -56,7 +62,7 @@ func ReadBook(cookie string) {
 func GetBook(cookie string, status int) {
 	urlPath := UrlPre + "/book/readnewbook"
 
-	req, _ := http.NewRequest("Get", urlPath, nil)
+	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
 
@@ -69,6 +75,7 @@ func GetBook(cookie string, status int) {
 
 	if respMessage.Code == 200 { //开启新书
 		lenNum := respMessage.Len
+
 		books := respMessage.Books[0:lenNum]
 
 		var i int

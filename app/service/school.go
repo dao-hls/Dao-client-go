@@ -14,7 +14,7 @@ import (
 
 func GetSchoolList(cookie string) []string {
 	urlPath := UrlPre + "/school/getschoollist"
-	req, _ := http.NewRequest("Get", urlPath, nil)
+	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
 

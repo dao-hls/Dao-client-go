@@ -15,7 +15,7 @@ import (
 func GetArmList(cookie string) []string {
 	urlPath := UrlPre + "/arm/getarmlist"
 
-	req, _ := http.NewRequest("Get", urlPath, nil)
+	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
 

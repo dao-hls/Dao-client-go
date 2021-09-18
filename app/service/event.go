@@ -19,7 +19,7 @@ import (
 func getEventList(cookie string) (model.Event, model.Event, model.Event) {
 	urlPath := UrlPre + "/event/getevent"
 
-	req, _ := http.NewRequest("Get", urlPath, nil)
+	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
 	resp, _ := (&http.Client{}).Do(req)
 
