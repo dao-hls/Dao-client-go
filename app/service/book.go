@@ -231,5 +231,5 @@ func getBookInfo() int {
 			b = 100
 		}
 	}
-	return a * b
+	return 8*b + a
 }
