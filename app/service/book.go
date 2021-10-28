@@ -17,7 +17,7 @@ import (
 )
 
 func ReadBook(cookie string) {
-	urlPath := UrlPre + "/book/readbook"
+	urlPath := UrlPre + "/book/bookinfo"
 
 	req, _ := http.NewRequest("GET", urlPath, nil)
 	req.Header.Set("Cookie", cookie)
@@ -164,7 +164,7 @@ func GetReadInfo(cookie string) int {
 	if pass > 18 {
 		return 0
 	} else {
-		urlPath := UrlPre + "/book/bookinfo"
+		urlPath := UrlPre + "/book/readbook"
 		var BookPass model.BookPass
 		BookPass.Pass = pass
 		postString, _ := json.Marshal(setReading)
